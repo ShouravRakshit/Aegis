@@ -1,0 +1,13 @@
+{
+  "Send_Message": {
+    "enabled": true,
+    "target": "SINGLE_GROUP"
+  },
+  "Sleep_On_Every": false,
+  "Save_Surv": {
+    "strategy": "ALL",
+    "tie_strategy": "C_ALL"
+  },
+  "Predictions": true,
+  "Enable_Move_Cost": true
+}

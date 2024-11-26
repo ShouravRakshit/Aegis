@@ -1,0 +1,36 @@
+# Ignore node_modules folder
+node_modules/
+
+# Ignore build outputs
+/dist
+/build
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE configurations
+.vscode/
+.idea/
+*.iml
+
+# Ignore log files
+*.log
+
+# Ignore temporary files
+*.tmp
+*.swp
+
+# Ignore sensitive files
+.env
+
+# Ignore virtual environment
+.venv/
+
+# Ignore large file
+aegis/client/aegis-client.exe
+
+# Ignore system files
+*.log
+*.tmp
+.DS_Store
