@@ -1,4 +1,3 @@
-27550
 {
   "settings": {
     "world_info": {
@@ -6,79 +5,76 @@
         "width": 15,
         "height": 15
       },
-      "seed": 3239,
+      "seed": 5416,
       "world_file_levels": {
-        "high": 13,
+        "high": 14,
         "mid": 7,
-        "low": 4
+        "low": 3
       },
       "agent_energy": 500
     }
   },
   "spawn_locs": [
     {
-      "x": 9,
-      "y": 5,
-      "type": "any"
+      "x": 14,
+      "y": 0,
+      "gid": 1,
+      "type": "group"
     },
     {
-      "x": 2,
-      "y": 8,
+      "x": 0,
+      "y": 14,
+      "gid": 1,
+      "type": "group"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "gid": 1,
+      "type": "group"
+    },
+    {
+      "x": 14,
+      "y": 14,
+      "gid": 1,
+      "type": "group"
+    },
+    {
+      "x": 4,
+      "y": 12,
+      "gid": 1,
+      "type": "group"
+    },
+    {
+      "x": 10,
+      "y": 12,
       "type": "any"
     }
   ],
   "cell_types": {
-    "fire_cells": [],
-    "killer_cells": [
-      {
-        "x": 3,
-        "y": 9
-      },
-      {
-        "x": 0,
-        "y": 9
-      },
-      {
-        "x": 1,
-        "y": 9
-      },
-      {
-        "x": 2,
-        "y": 9
-      },
-      {
-        "x": 4,
-        "y": 9
-      },
+    "fire_cells": [
       {
         "x": 4,
         "y": 8
       },
       {
-        "x": 4,
-        "y": 7
+        "x": 5,
+        "y": 10
       },
       {
-        "x": 4,
-        "y": 6
+        "x": 7,
+        "y": 8
       },
       {
-        "x": 3,
-        "y": 6
+        "x": 8,
+        "y": 10
       },
       {
-        "x": 2,
-        "y": 6
-      },
-      {
-        "x": 1,
-        "y": 6
-      },
-      {
-        "x": 0,
-        "y": 6
+        "x": 10,
+        "y": 8
       }
     ],
+    "killer_cells": [],
     "charging_cells": []
   },
   "stacks": [
@@ -207,7 +203,7 @@
         "x": 1,
         "y": 0
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -215,7 +211,7 @@
         "x": 1,
         "y": 1
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -223,7 +219,7 @@
         "x": 1,
         "y": 2
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -231,7 +227,7 @@
         "x": 1,
         "y": 3
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -239,7 +235,7 @@
         "x": 1,
         "y": 4
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -247,7 +243,7 @@
         "x": 1,
         "y": 5
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -255,7 +251,7 @@
         "x": 1,
         "y": 6
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -263,7 +259,7 @@
         "x": 1,
         "y": 7
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -271,7 +267,7 @@
         "x": 1,
         "y": 8
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -279,7 +275,7 @@
         "x": 1,
         "y": 9
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -287,7 +283,7 @@
         "x": 1,
         "y": 10
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -295,7 +291,7 @@
         "x": 1,
         "y": 11
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -303,7 +299,7 @@
         "x": 1,
         "y": 12
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -311,7 +307,7 @@
         "x": 1,
         "y": 13
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -328,95 +324,16 @@
         "y": 0
       },
       "move_cost": 1,
-      "contents": []
-    },
-    {
-      "cell_loc": {
-        "x": 2,
-        "y": 1
-      },
-      "move_cost": 1,
-      "contents": []
-    },
-    {
-      "cell_loc": {
-        "x": 2,
-        "y": 2
-      },
-      "move_cost": 1,
-      "contents": []
-    },
-    {
-      "cell_loc": {
-        "x": 2,
-        "y": 3
-      },
-      "move_cost": 1,
-      "contents": []
-    },
-    {
-      "cell_loc": {
-        "x": 2,
-        "y": 4
-      },
-      "move_cost": 1,
-      "contents": []
-    },
-    {
-      "cell_loc": {
-        "x": 2,
-        "y": 5
-      },
-      "move_cost": 1,
-      "contents": []
-    },
-    {
-      "cell_loc": {
-        "x": 2,
-        "y": 6
-      },
-      "move_cost": 1,
-      "contents": []
-    },
-    {
-      "cell_loc": {
-        "x": 2,
-        "y": 7
-      },
-      "move_cost": 1,
-      "contents": []
-    },
-    {
-      "cell_loc": {
-        "x": 2,
-        "y": 8
-      },
-      "move_cost": 1,
-      "contents": []
-    },
-    {
-      "cell_loc": {
-        "x": 2,
-        "y": 9
-      },
-      "move_cost": 1,
-      "contents": []
-    },
-    {
-      "cell_loc": {
-        "x": 2,
-        "y": 10
-      },
-      "move_cost": 1,
-      "contents": []
-    },
-    {
-      "cell_loc": {
-        "x": 2,
-        "y": 11
-      },
-      "move_cost": 1,
       "contents": [
+        {
+          "type": "sv",
+          "arguments": {
+            "energy_level": 0,
+            "body_mass": 0,
+            "mental_state": 0,
+            "damage_factor": 0
+          }
+        },
         {
           "type": "sv",
           "arguments": {
@@ -431,6 +348,109 @@
     {
       "cell_loc": {
         "x": 2,
+        "y": 1
+      },
+      "move_cost": 1,
+      "contents": []
+    },
+    {
+      "cell_loc": {
+        "x": 2,
+        "y": 2
+      },
+      "move_cost": 1,
+      "contents": []
+    },
+    {
+      "cell_loc": {
+        "x": 2,
+        "y": 3
+      },
+      "move_cost": 1,
+      "contents": []
+    },
+    {
+      "cell_loc": {
+        "x": 2,
+        "y": 4
+      },
+      "move_cost": 1,
+      "contents": []
+    },
+    {
+      "cell_loc": {
+        "x": 2,
+        "y": 5
+      },
+      "move_cost": 1,
+      "contents": []
+    },
+    {
+      "cell_loc": {
+        "x": 2,
+        "y": 6
+      },
+      "move_cost": 1,
+      "contents": [
+        {
+          "type": "rb",
+          "arguments": {
+            "remove_energy": 0,
+            "remove_agents": 0
+          }
+        },
+        {
+          "type": "rb",
+          "arguments": {
+            "remove_energy": 0,
+            "remove_agents": 0
+          }
+        }
+      ]
+    },
+    {
+      "cell_loc": {
+        "x": 2,
+        "y": 7
+      },
+      "move_cost": 1,
+      "contents": []
+    },
+    {
+      "cell_loc": {
+        "x": 2,
+        "y": 8
+      },
+      "move_cost": 1,
+      "contents": []
+    },
+    {
+      "cell_loc": {
+        "x": 2,
+        "y": 9
+      },
+      "move_cost": 1,
+      "contents": []
+    },
+    {
+      "cell_loc": {
+        "x": 2,
+        "y": 10
+      },
+      "move_cost": 1,
+      "contents": []
+    },
+    {
+      "cell_loc": {
+        "x": 2,
+        "y": 11
+      },
+      "move_cost": 1,
+      "contents": []
+    },
+    {
+      "cell_loc": {
+        "x": 2,
         "y": 12
       },
       "move_cost": 1,
@@ -457,7 +477,7 @@
         "x": 3,
         "y": 0
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -465,7 +485,7 @@
         "x": 3,
         "y": 1
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -473,7 +493,7 @@
         "x": 3,
         "y": 2
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -481,7 +501,7 @@
         "x": 3,
         "y": 3
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -489,7 +509,7 @@
         "x": 3,
         "y": 4
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -497,7 +517,7 @@
         "x": 3,
         "y": 5
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -505,7 +525,7 @@
         "x": 3,
         "y": 6
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -545,7 +565,7 @@
         "x": 3,
         "y": 11
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -553,7 +573,7 @@
         "x": 3,
         "y": 12
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -561,7 +581,7 @@
         "x": 3,
         "y": 13
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -578,7 +598,26 @@
         "y": 0
       },
       "move_cost": 1,
-      "contents": []
+      "contents": [
+        {
+          "type": "sv",
+          "arguments": {
+            "energy_level": 0,
+            "body_mass": 0,
+            "mental_state": 0,
+            "damage_factor": 0
+          }
+        },
+        {
+          "type": "sv",
+          "arguments": {
+            "energy_level": 0,
+            "body_mass": 0,
+            "mental_state": 0,
+            "damage_factor": 0
+          }
+        }
+      ]
     },
     {
       "cell_loc": {
@@ -626,7 +665,15 @@
         "y": 6
       },
       "move_cost": 1,
-      "contents": []
+      "contents": [
+        {
+          "type": "rb",
+          "arguments": {
+            "remove_energy": 0,
+            "remove_agents": 0
+          }
+        }
+      ]
     },
     {
       "cell_loc": {
@@ -681,7 +728,7 @@
         "x": 4,
         "y": 13
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -697,7 +744,7 @@
         "x": 5,
         "y": 0
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -705,7 +752,7 @@
         "x": 5,
         "y": 1
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -713,7 +760,7 @@
         "x": 5,
         "y": 2
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -721,7 +768,7 @@
         "x": 5,
         "y": 3
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -729,7 +776,7 @@
         "x": 5,
         "y": 4
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -737,7 +784,7 @@
         "x": 5,
         "y": 5
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -745,7 +792,7 @@
         "x": 5,
         "y": 6
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -801,7 +848,7 @@
         "x": 5,
         "y": 13
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -818,7 +865,26 @@
         "y": 0
       },
       "move_cost": 1,
-      "contents": []
+      "contents": [
+        {
+          "type": "sv",
+          "arguments": {
+            "energy_level": 0,
+            "body_mass": 0,
+            "mental_state": 0,
+            "damage_factor": 0
+          }
+        },
+        {
+          "type": "sv",
+          "arguments": {
+            "energy_level": 0,
+            "body_mass": 0,
+            "mental_state": 0,
+            "damage_factor": 0
+          }
+        }
+      ]
     },
     {
       "cell_loc": {
@@ -866,7 +932,15 @@
         "y": 6
       },
       "move_cost": 1,
-      "contents": []
+      "contents": [
+        {
+          "type": "rb",
+          "arguments": {
+            "remove_energy": 0,
+            "remove_agents": 0
+          }
+        }
+      ]
     },
     {
       "cell_loc": {
@@ -921,7 +995,7 @@
         "x": 6,
         "y": 13
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -937,7 +1011,7 @@
         "x": 7,
         "y": 0
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -945,7 +1019,7 @@
         "x": 7,
         "y": 1
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -953,7 +1027,7 @@
         "x": 7,
         "y": 2
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -961,7 +1035,7 @@
         "x": 7,
         "y": 3
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -969,7 +1043,7 @@
         "x": 7,
         "y": 4
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -977,7 +1051,7 @@
         "x": 7,
         "y": 5
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -985,7 +1059,7 @@
         "x": 7,
         "y": 6
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1041,7 +1115,7 @@
         "x": 7,
         "y": 13
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1058,7 +1132,26 @@
         "y": 0
       },
       "move_cost": 1,
-      "contents": []
+      "contents": [
+        {
+          "type": "sv",
+          "arguments": {
+            "energy_level": 0,
+            "body_mass": 0,
+            "mental_state": 0,
+            "damage_factor": 0
+          }
+        },
+        {
+          "type": "sv",
+          "arguments": {
+            "energy_level": 0,
+            "body_mass": 0,
+            "mental_state": 0,
+            "damage_factor": 0
+          }
+        }
+      ]
     },
     {
       "cell_loc": {
@@ -1106,7 +1199,15 @@
         "y": 6
       },
       "move_cost": 1,
-      "contents": []
+      "contents": [
+        {
+          "type": "rb",
+          "arguments": {
+            "remove_energy": 0,
+            "remove_agents": 0
+          }
+        }
+      ]
     },
     {
       "cell_loc": {
@@ -1161,7 +1262,7 @@
         "x": 8,
         "y": 13
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1177,7 +1278,7 @@
         "x": 9,
         "y": 0
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1185,7 +1286,7 @@
         "x": 9,
         "y": 1
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1193,7 +1294,7 @@
         "x": 9,
         "y": 2
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1201,7 +1302,7 @@
         "x": 9,
         "y": 3
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1209,7 +1310,7 @@
         "x": 9,
         "y": 4
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1217,7 +1318,7 @@
         "x": 9,
         "y": 5
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1225,7 +1326,7 @@
         "x": 9,
         "y": 6
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1281,7 +1382,7 @@
         "x": 9,
         "y": 13
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1298,7 +1399,26 @@
         "y": 0
       },
       "move_cost": 1,
-      "contents": []
+      "contents": [
+        {
+          "type": "sv",
+          "arguments": {
+            "energy_level": 0,
+            "body_mass": 0,
+            "mental_state": 0,
+            "damage_factor": 0
+          }
+        },
+        {
+          "type": "sv",
+          "arguments": {
+            "energy_level": 0,
+            "body_mass": 0,
+            "mental_state": 0,
+            "damage_factor": 0
+          }
+        }
+      ]
     },
     {
       "cell_loc": {
@@ -1346,7 +1466,15 @@
         "y": 6
       },
       "move_cost": 1,
-      "contents": []
+      "contents": [
+        {
+          "type": "rb",
+          "arguments": {
+            "remove_energy": 0,
+            "remove_agents": 0
+          }
+        }
+      ]
     },
     {
       "cell_loc": {
@@ -1401,7 +1529,7 @@
         "x": 10,
         "y": 13
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1417,7 +1545,7 @@
         "x": 11,
         "y": 0
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1425,7 +1553,7 @@
         "x": 11,
         "y": 1
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1433,7 +1561,7 @@
         "x": 11,
         "y": 2
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1441,7 +1569,7 @@
         "x": 11,
         "y": 3
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1449,7 +1577,7 @@
         "x": 11,
         "y": 4
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1457,7 +1585,7 @@
         "x": 11,
         "y": 5
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1465,7 +1593,7 @@
         "x": 11,
         "y": 6
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1505,7 +1633,7 @@
         "x": 11,
         "y": 11
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1513,7 +1641,7 @@
         "x": 11,
         "y": 12
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1521,7 +1649,7 @@
         "x": 11,
         "y": 13
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1538,7 +1666,26 @@
         "y": 0
       },
       "move_cost": 1,
-      "contents": []
+      "contents": [
+        {
+          "type": "sv",
+          "arguments": {
+            "energy_level": 0,
+            "body_mass": 0,
+            "mental_state": 0,
+            "damage_factor": 0
+          }
+        },
+        {
+          "type": "sv",
+          "arguments": {
+            "energy_level": 0,
+            "body_mass": 0,
+            "mental_state": 0,
+            "damage_factor": 0
+          }
+        }
+      ]
     },
     {
       "cell_loc": {
@@ -1586,7 +1733,15 @@
         "y": 6
       },
       "move_cost": 1,
-      "contents": []
+      "contents": [
+        {
+          "type": "rb",
+          "arguments": {
+            "remove_energy": 0,
+            "remove_agents": 0
+          }
+        }
+      ]
     },
     {
       "cell_loc": {
@@ -1657,7 +1812,7 @@
         "x": 13,
         "y": 0
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1665,7 +1820,7 @@
         "x": 13,
         "y": 1
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1673,7 +1828,7 @@
         "x": 13,
         "y": 2
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1681,7 +1836,7 @@
         "x": 13,
         "y": 3
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1689,7 +1844,7 @@
         "x": 13,
         "y": 4
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1697,7 +1852,7 @@
         "x": 13,
         "y": 5
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1705,7 +1860,7 @@
         "x": 13,
         "y": 6
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1713,7 +1868,7 @@
         "x": 13,
         "y": 7
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1721,7 +1876,7 @@
         "x": 13,
         "y": 8
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1729,7 +1884,7 @@
         "x": 13,
         "y": 9
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1737,7 +1892,7 @@
         "x": 13,
         "y": 10
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1745,7 +1900,7 @@
         "x": 13,
         "y": 11
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1753,7 +1908,7 @@
         "x": 13,
         "y": 12
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1761,7 +1916,7 @@
         "x": 13,
         "y": 13
       },
-      "move_cost": 1,
+      "move_cost": 5,
       "contents": []
     },
     {
@@ -1894,6 +2049,3 @@
     }
   ]
 }
-System Run date: 2024-11-26 16:39:35.018094
-MSG;System Run ended on: 2024-11-26 18:02:55.022286
-MSG;Kernel Shutting Down;
