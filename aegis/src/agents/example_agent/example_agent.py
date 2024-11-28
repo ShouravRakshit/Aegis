@@ -1,3 +1,5 @@
+import heapq
+import math
 from typing import override
 
 from aegis import (
@@ -21,6 +23,8 @@ from aegis import (
     SurroundInfo,
     Survivor,
 )
+from aegis.common.location import Location
+
 from agent import BaseAgent, Brain, LogLevels
 
 
@@ -50,7 +54,7 @@ class ExampleAgent(Brain):
     def handle_send_message_result(self, smr: SEND_MESSAGE_RESULT) -> None:
         BaseAgent.log(LogLevels.Always, f"SEND_MESSAGE_RESULT: {smr}")
         BaseAgent.log(LogLevels.Test, f"{smr}")
-        print("#--- You need to implement handle_send_message_result function! ---#")
+        #print("#--- You need to implement handle_send_message_result function! ---#")
 
     @override
     def handle_move_result(self, mr: MOVE_RESULT) -> None:
@@ -70,13 +74,13 @@ class ExampleAgent(Brain):
     def handle_observe_result(self, ovr: OBSERVE_RESULT) -> None:
         BaseAgent.log(LogLevels.Always, f"OBSERVER_RESULT: {ovr}")
         BaseAgent.log(LogLevels.Test, f"{ovr}")
-        print("#--- You need to implement handle_observe_result function! ---#")
+        #print("#--- You need to implement handle_observe_result function! ---#")
 
     @override
     def handle_save_surv_result(self, ssr: SAVE_SURV_RESULT) -> None:
         BaseAgent.log(LogLevels.Always, f"SAVE_SURV_RESULT: {ssr}")
         BaseAgent.log(LogLevels.Test, f"{ssr}")
-        print("#--- You need to implement handle_save_surv_result function! ---#")
+        #print("#--- You need to implement handle_save_surv_result function! ---#")
 
     @override
     def handle_predict_result(self, prd: PREDICT_RESULT) -> None:
@@ -87,7 +91,7 @@ class ExampleAgent(Brain):
     def handle_sleep_result(self, sr: SLEEP_RESULT) -> None:
         BaseAgent.log(LogLevels.Always, f"SLEEP_RESULT: {sr}")
         BaseAgent.log(LogLevels.Test, f"{sr}")
-        print("#--- You need to implement handle_sleep_result function! ---#")
+        #print("#--- You need to implement handle_sleep_result function! ---#")
 
     @override
     def handle_team_dig_result(self, tdr: TEAM_DIG_RESULT) -> None:
@@ -131,7 +135,16 @@ class ExampleAgent(Brain):
             self.send_and_end_turn(TEAM_DIG())
             return
 
-        if self.moving_north:
+        survivor_location = self.find_survivor_location(world)
+
+        # Run A* search to get the best direction to move towards the survivor
+        direction = self.run_a_star(world, survivor_location)
+
+        if direction:
+            self.send_and_end_turn(MOVE(direction))
+            return
+
+        elif self.moving_north:
             # Check if we can move north
             north_cell = world.get_cell_at(self._agent.get_location().add(Direction.NORTH))
             if north_cell is not None and world.on_map(north_cell.location):
@@ -176,3 +189,84 @@ class ExampleAgent(Brain):
 
             cell.move_cost = cell_info.move_cost
             cell.set_top_layer(cell_info.top_layer)
+
+
+    def find_survivor_location(self, world):
+        grid_array = world.get_world_grid() 
+        
+        for x in range(len(grid_array)):
+            for y in range(len(grid_array[x])):
+                grid_cell = grid_array[x][y]  
+                
+                # Check if the grid cell contains survivor
+                if grid_cell and grid_cell.survivor_chance > 0:
+                    BaseAgent.log(LogLevels.Always, f"Survivor found at row: {x}, col: {y}")
+                    return Location(x, y)  # Return the location of the survivor
+
+        BaseAgent.log(LogLevels.Always, "No survivor found in the grid.")
+        return None  
+    
+    def run_a_star(self, world, goal):
+        start = self._agent.get_location()
+        priority_queue = []
+        path_trace = {}
+        heapq.heapify(priority_queue)
+        g_costs = {start: 0}
+        visited = set()
+
+        # Initialize the open list with the current location
+        heapq.heappush(priority_queue, (0, start))
+
+        while priority_queue:
+            #Ignore fcost, get current cell
+            _, current_cell = heapq.heappop(priority_queue)
+
+            if current_cell in visited:
+                continue
+
+            visited.add(current_cell)
+
+            # If we have reached the goal, determine the direction
+            if current_cell == goal:
+                return self.get_first_step_of_path(path_trace, start, goal)
+
+            for direction in Direction:
+                neighbor_location = current_cell.add(direction)
+                neighbor_grid_cell = world.get_cell_at(neighbor_location)
+
+                # If the neighbor is out of bounds or already visited then skip it
+                if neighbor_location in visited or neighbor_grid_cell is None or neighbor_grid_cell.is_killer_cell() or neighbor_grid_cell.is_on_fire():
+                    continue
+
+                # Calculate g(n) - the movement cost to move into this neighboring cell
+                current_g_cost = g_costs[current_cell] + neighbor_grid_cell.move_cost
+
+                # If this neighbor is not in g_costs or a better path was discovered, update fields
+                if neighbor_location not in g_costs or current_g_cost < g_costs[neighbor_location]:
+                    g_costs[neighbor_location] = current_g_cost
+                    h_cost = self.get_heuristic(neighbor_location, goal)
+                    f_cost = current_g_cost + h_cost
+
+                    # Record the path and push the neighbor onto the open list
+                    path_trace [neighbor_location] = (current_cell, direction)
+                    heapq.heappush(priority_queue, (f_cost, neighbor_location))
+
+        # If no path to the target is found
+        return None
+
+    def get_heuristic(self, current, destination):
+        x_distance = (destination.x - current.x) ** 2
+        y_distance = (destination.y - current.y) ** 2
+        euclidean_distance = x_distance + y_distance
+        return math.sqrt(euclidean_distance)
+
+    def get_first_step_of_path(self, came_from, start, goal):
+        first_step = None
+
+        current = goal
+        while current != start:
+            previous, direction = came_from[current]
+            if previous == start:
+                return direction
+            current = previous
+        return first_step    
