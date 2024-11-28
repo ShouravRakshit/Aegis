@@ -56,7 +56,27 @@ class ExampleAgent(Brain):
     def handle_send_message_result(self, smr: SEND_MESSAGE_RESULT) -> None:
         BaseAgent.log(LogLevels.Always, f"SEND_MESSAGE_RESULT: {smr}")
         BaseAgent.log(LogLevels.Test, f"{smr}")
-        #print("#--- You need to implement handle_send_message_result function! ---#")
+        BaseAgent.log(LogLevels.Always, f"Received message from Agent {smr.from_agent_id}: '{smr.msg}'")
+
+        # Parse and log location
+        if "My location is" in smr.msg:
+            location = smr.msg.split("My location is")[-1].split(";")[0].strip()
+            BaseAgent.log(LogLevels.Always, f"Received location of Agent {smr.from_agent_id}: {location}")
+
+        # Parse and log energy
+        if "Energy:" in smr.msg:
+            energy = smr.msg.split("Energy:")[-1].split(";")[0].strip()
+            BaseAgent.log(LogLevels.Always, f"Received energy of Agent {smr.from_agent_id}: {energy}")
+
+        # Parse and log survivor location
+        if "Survivor location:" in smr.msg:
+            survivor_location = smr.msg.split("Survivor location:")[-1].split(";")[0].strip()
+            BaseAgent.log(LogLevels.Always, f"Received survivor location from Agent {smr.from_agent_id}: {survivor_location}")
+
+        # Parse and log rubble details
+        if "Rubble at" in smr.msg:
+            rubble_details = smr.msg.split("Rubble at")[-1].split(";")[0].strip()
+            BaseAgent.log(LogLevels.Always, f"Received rubble details from Agent {smr.from_agent_id}: {rubble_details}")
 
     @override
     def handle_move_result(self, mr: MOVE_RESULT) -> None:
@@ -106,6 +126,24 @@ class ExampleAgent(Brain):
         BaseAgent.log(LogLevels.Always, "Thinking")
 
         # Send a message to other agents in my group.
+        current_location = self._agent.get_location()
+        current_energy = self._agent.get_energy_level()
+        message = f"My location is {current_location}; Energy: {current_energy}"
+        
+        # Include survivor location if known
+        if hasattr(self, 'survivor_location') and self.survivor_location is not None:
+            message += f"; Survivor location: {self.survivor_location}"
+
+        # Check for rubble in the current cell
+        current_cell = self.get_world().get_cell_at(current_location)
+        if current_cell and isinstance(current_cell.get_top_layer(), Rubble):
+            rubble = current_cell.get_top_layer()
+            rubble_details = f"Rubble at {current_location}: Energy={rubble.json()['arguments']['remove_energy']}, Agents={rubble.json()['arguments']['remove_agents']}"
+            message += f"; {rubble_details}"
+
+        self._agent.send(SEND_MESSAGE(AgentIDList(), message))
+        BaseAgent.log(LogLevels.Always, f"Message sent: {message}")
+        
         # Empty AgentIDList will send to group members.
         # Update the world with latest surround info
         if self.current_surround_info is not None:
