@@ -37,6 +37,8 @@ class ExampleAgent(Brain):
         self.north_steps = 0      # Track how many steps north we've taken
         self.max_north_steps = 4  # Maximum steps to take north before moving east
         self.current_surround_info = None  # Store the latest surround info
+        self.saved_survivors = []  # List to track saved survivors
+        self.survivor_location = None  # Class variable to store survivor location
 
     @override
     def handle_connect_ok(self, connect_ok: CONNECT_OK) -> None:
@@ -125,13 +127,15 @@ class ExampleAgent(Brain):
         # Get the top layer at the agent’s current location.
         top_layer = cell.get_top_layer()
 
-        # If a survivor is present, save it and end the turn.
-        if isinstance(top_layer, Survivor):
+        # If a survivor is present and has not been saved before, save it and end the turn.
+        if isinstance(top_layer, Survivor) and cell.location not in self.saved_survivors:
             self.send_and_end_turn(SAVE_SURV())
+            print ("survivor saved at location: ", cell.location)
+            self.saved_survivors.append(cell.location)  # Mark the survivor as saved
             return
 
         # If rubble is present, clear it and end the turn.
-        if isinstance(top_layer, Rubble):
+        if isinstance(top_layer, Rubble) and cell.location == self.survivor_location and cell.location not in self.saved_survivors:
             self.send_and_end_turn(TEAM_DIG())
             return
 
@@ -197,13 +201,16 @@ class ExampleAgent(Brain):
         for x in range(len(grid_array)):
             for y in range(len(grid_array[x])):
                 grid_cell = grid_array[x][y]  
-                
-                # Check if the grid cell contains survivor
-                if grid_cell and grid_cell.survivor_chance > 0:
+
+                grid_location = Location(x, y)
+                # Check if the grid cell contains survivor and if it hasn't been saved
+                if grid_cell and grid_cell.survivor_chance > 0 and grid_location not in self.saved_survivors:
                     BaseAgent.log(LogLevels.Always, f"Survivor found at row: {x}, col: {y}")
+                    self.survivor_location = grid_location  # Set the class variable
                     return Location(x, y)  # Return the location of the survivor
 
         BaseAgent.log(LogLevels.Always, "No survivor found in the grid.")
+        self.survivor_location = None  # If no survivor found, set the class variable to None
         return None  
     
     def run_a_star(self, world, goal):
