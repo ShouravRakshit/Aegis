@@ -42,3 +42,4 @@ __pycache__/
 # Ignore simulator-generated files
 *.out
 *.log
+replay.txt
