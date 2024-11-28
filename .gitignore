@@ -34,3 +34,11 @@ aegis/client/aegis-client.exe
 *.log
 *.tmp
 .DS_Store
+
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+
+# Ignore simulator-generated files
+*.out
+*.log
