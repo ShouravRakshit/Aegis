@@ -1,4 +1,4 @@
-27550
+28550
 {
   "settings": {
     "world_info": {
@@ -6,77 +6,156 @@
         "width": 15,
         "height": 15
       },
-      "seed": 3239,
+      "seed": 3574,
       "world_file_levels": {
-        "high": 13,
-        "mid": 7,
-        "low": 4
+        "high": 15,
+        "mid": 8,
+        "low": 3
       },
       "agent_energy": 500
     }
   },
   "spawn_locs": [
     {
-      "x": 9,
-      "y": 5,
+      "x": 10,
+      "y": 1,
       "type": "any"
     },
     {
-      "x": 2,
-      "y": 8,
-      "type": "any"
+      "x": 1,
+      "y": 0,
+      "gid": 1,
+      "type": "group"
+    },
+    {
+      "x": 11,
+      "y": 1,
+      "gid": 1,
+      "type": "group"
+    },
+    {
+      "x": 11,
+      "y": 2,
+      "gid": 1,
+      "type": "group"
+    },
+    {
+      "x": 10,
+      "y": 2,
+      "gid": 1,
+      "type": "group"
+    },
+    {
+      "x": 11,
+      "y": 3,
+      "gid": 1,
+      "type": "group"
+    },
+    {
+      "x": 10,
+      "y": 3,
+      "gid": 1,
+      "type": "group"
     }
   ],
   "cell_types": {
     "fire_cells": [],
     "killer_cells": [
       {
-        "x": 3,
+        "x": 7,
+        "y": 14
+      },
+      {
+        "x": 7,
+        "y": 13
+      },
+      {
+        "x": 7,
+        "y": 12
+      },
+      {
+        "x": 7,
+        "y": 11
+      },
+      {
+        "x": 7,
+        "y": 10
+      },
+      {
+        "x": 7,
         "y": 9
       },
       {
-        "x": 0,
-        "y": 9
-      },
-      {
-        "x": 1,
-        "y": 9
-      },
-      {
-        "x": 2,
-        "y": 9
-      },
-      {
-        "x": 4,
-        "y": 9
-      },
-      {
-        "x": 4,
+        "x": 7,
         "y": 8
       },
       {
-        "x": 4,
+        "x": 7,
         "y": 7
       },
       {
-        "x": 4,
+        "x": 7,
         "y": 6
+      },
+      {
+        "x": 7,
+        "y": 5
+      },
+      {
+        "x": 7,
+        "y": 4
+      },
+      {
+        "x": 6,
+        "y": 4
+      },
+      {
+        "x": 5,
+        "y": 4
+      },
+      {
+        "x": 4,
+        "y": 4
       },
       {
         "x": 3,
-        "y": 6
+        "y": 4
       },
       {
         "x": 2,
-        "y": 6
+        "y": 4
       },
       {
         "x": 1,
-        "y": 6
+        "y": 4
       },
       {
-        "x": 0,
-        "y": 6
+        "x": 1,
+        "y": 3
+      },
+      {
+        "x": 1,
+        "y": 2
+      },
+      {
+        "x": 2,
+        "y": 2
+      },
+      {
+        "x": 3,
+        "y": 2
+      },
+      {
+        "x": 4,
+        "y": 2
+      },
+      {
+        "x": 4,
+        "y": 1
+      },
+      {
+        "x": 4,
+        "y": 0
       }
     ],
     "charging_cells": []
@@ -111,7 +190,7 @@
         "x": 0,
         "y": 3
       },
-      "move_cost": 1,
+      "move_cost": 2,
       "contents": []
     },
     {
@@ -414,6 +493,22 @@
       "cell_loc": {
         "x": 2,
         "y": 11
+      },
+      "move_cost": 1,
+      "contents": []
+    },
+    {
+      "cell_loc": {
+        "x": 2,
+        "y": 12
+      },
+      "move_cost": 1,
+      "contents": []
+    },
+    {
+      "cell_loc": {
+        "x": 2,
+        "y": 13
       },
       "move_cost": 1,
       "contents": [
@@ -427,22 +522,6 @@
           }
         }
       ]
-    },
-    {
-      "cell_loc": {
-        "x": 2,
-        "y": 12
-      },
-      "move_cost": 1,
-      "contents": []
-    },
-    {
-      "cell_loc": {
-        "x": 2,
-        "y": 13
-      },
-      "move_cost": 1,
-      "contents": []
     },
     {
       "cell_loc": {
@@ -1894,6 +1973,117 @@
     }
   ]
 }
-System Run date: 2024-11-26 16:39:35.018094
-MSG;System Run ended on: 2024-11-26 18:02:55.022286
+System Run date: 2024-11-27 20:37:49.203513
+ADD_AGT; Info(ID 1, GID 1, Eng 500):Loc(X 10, Y 3);
+ADD_AGT; Info(ID 2, GID 1, Eng 500):Loc(X 10, Y 2);
+ADD_AGT; Info(ID 3, GID 1, Eng 500):Loc(X 11, Y 1);
+ADD_AGT; Info(ID 4, GID 1, Eng 500):Loc(X 11, Y 3);
+ADD_AGT; Info(ID 5, GID 1, Eng 500):Loc(X 1, Y 0);
+ADD_AGT; Info(ID 6, GID 1, Eng 500):Loc(X 11, Y 2);
+ADD_AGT; Info(ID 7, GID 1, Eng 500):Loc(X 10, Y 1);
+#
+World File Used : worlds/challenge1-4.world;
+Simulation Start: Number of Rounds 10;
+RS;1;
+Agent_Cmds;{[(1, 1)#Move NORTH]$[(2, 1)#Move NORTH]$[(3, 1)#Move NORTH]$[(4, 1)#Move NORTH]$[(5, 1)#Move NORTH]$[(6, 1)#Move NORTH]$[(7, 1)#Move NORTH]}
+Sim_Events;
+SV; { NONE };
+SVG; { NONE };
+Top_Layer_Rem; { NONE };
+Agents_Information; { (1,1,499,10,4),(2,1,499,10,3),(3,1,499,11,2),(4,1,499,11,4),(5,1,499,1,1),(6,1,499,11,3),(7,1,499,10,2), };
+End_Sim;
+Dead_Agents; {  };
+RE;
+RS;2;
+Agent_Cmds;{[(1, 1)#Move NORTH]$[(2, 1)#Move NORTH]$[(3, 1)#Move NORTH]$[(4, 1)#Move NORTH]$[(5, 1)#Move NORTH]$[(6, 1)#Move NORTH]$[(7, 1)#Move NORTH]}
+Sim_Events;
+SV; { NONE };
+SVG; { NONE };
+Top_Layer_Rem; { NONE };
+Agents_Information; { (1,1,498,10,5),(2,1,498,10,4),(3,1,498,11,3),(4,1,498,11,5),(5,1,498,1,2),(6,1,498,11,4),(7,1,498,10,3), };
+End_Sim;
+Dead_Agents; { (5, 1), };
+RE;
+RS;3;
+Agent_Cmds;{[(1, 1)#Move NORTH]$[(2, 1)#Move NORTH]$[(3, 1)#Move NORTH]$[(4, 1)#Move NORTH]$[(6, 1)#Move NORTH]$[(7, 1)#Move NORTH]}
+Sim_Events;
+SV; { NONE };
+SVG; { NONE };
+Top_Layer_Rem; { NONE };
+Agents_Information; { (1,1,497,10,6),(2,1,497,10,5),(3,1,497,11,4),(4,1,497,11,6),(6,1,497,11,5),(7,1,497,10,4), };
+End_Sim;
+Dead_Agents; {  };
+RE;
+RS;4;
+Agent_Cmds;{[(1, 1)#Move NORTH]$[(2, 1)#Move NORTH]$[(3, 1)#Move NORTH]$[(4, 1)#Move NORTH]$[(6, 1)#Move NORTH]$[(7, 1)#Move NORTH]}
+Sim_Events;
+SV; { NONE };
+SVG; { NONE };
+Top_Layer_Rem; { NONE };
+Agents_Information; { (1,1,496,10,7),(2,1,496,10,6),(3,1,496,11,5),(4,1,496,11,7),(6,1,496,11,6),(7,1,496,10,5), };
+End_Sim;
+Dead_Agents; {  };
+RE;
+RS;5;
+Agent_Cmds;{[(1, 1)#Move EAST]$[(2, 1)#Move EAST]$[(3, 1)#Move EAST]$[(4, 1)#Move EAST]$[(6, 1)#Move EAST]$[(7, 1)#Move EAST]}
+Sim_Events;
+SV; { NONE };
+SVG; { NONE };
+Top_Layer_Rem; { NONE };
+Agents_Information; { (1,1,495,11,7),(2,1,495,11,6),(3,1,495,12,5),(4,1,495,12,7),(6,1,495,12,6),(7,1,495,11,5), };
+End_Sim;
+Dead_Agents; {  };
+RE;
+RS;6;
+Agent_Cmds;{[(1, 1)#Move NORTH]$[(2, 1)#Move NORTH]$[(3, 1)#Move NORTH]$[(4, 1)#Move NORTH]$[(6, 1)#Move NORTH]$[(7, 1)#Move NORTH]}
+Sim_Events;
+SV; { NONE };
+SVG; { NONE };
+Top_Layer_Rem; { NONE };
+Agents_Information; { (1,1,494,11,8),(2,1,494,11,7),(3,1,494,12,6),(4,1,494,12,8),(6,1,494,12,7),(7,1,494,11,6), };
+End_Sim;
+Dead_Agents; {  };
+RE;
+RS;7;
+Agent_Cmds;{[(1, 1)#Move NORTH]$[(2, 1)#Move NORTH]$[(3, 1)#Move NORTH]$[(4, 1)#Move NORTH]$[(6, 1)#Move NORTH]$[(7, 1)#Move NORTH]}
+Sim_Events;
+SV; { NONE };
+SVG; { NONE };
+Top_Layer_Rem; { NONE };
+Agents_Information; { (1,1,493,11,9),(2,1,493,11,8),(3,1,493,12,7),(4,1,493,12,9),(6,1,493,12,8),(7,1,493,11,7), };
+End_Sim;
+Dead_Agents; {  };
+RE;
+RS;8;
+Agent_Cmds;{[(1, 1)#Move NORTH]$[(2, 1)#Move NORTH]$[(3, 1)#Move NORTH]$[(4, 1)#Move NORTH]$[(6, 1)#Move NORTH]$[(7, 1)#Move NORTH]}
+Sim_Events;
+SV; { NONE };
+SVG; { NONE };
+Top_Layer_Rem; { NONE };
+Agents_Information; { (1,1,492,11,10),(2,1,492,11,9),(3,1,492,12,8),(4,1,492,12,10),(6,1,492,12,9),(7,1,492,11,8), };
+End_Sim;
+Dead_Agents; {  };
+RE;
+RS;9;
+Agent_Cmds;{[(1, 1)#Move EAST]$[(2, 1)#Move EAST]$[(3, 1)#Move EAST]$[(4, 1)#Move EAST]$[(6, 1)#Move EAST]$[(7, 1)#Move EAST]}
+Sim_Events;
+SV; { NONE };
+SVG; { NONE };
+Top_Layer_Rem; { NONE };
+Agents_Information; { (1,1,491,12,10),(2,1,491,12,9),(3,1,491,13,8),(4,1,491,13,10),(6,1,491,13,9),(7,1,491,12,8), };
+End_Sim;
+Dead_Agents; {  };
+RE;
+RS;10;
+Agent_Cmds;{[(1, 1)#Move NORTH]$[(2, 1)#Move NORTH]$[(3, 1)#Move NORTH]$[(4, 1)#Move NORTH]$[(6, 1)#Move NORTH]$[(7, 1)#Move NORTH]}
+Sim_Events;
+SV; { NONE };
+SVG; { NONE };
+Top_Layer_Rem; { NONE };
+Agents_Information; { (1,1,490,12,11),(2,1,490,12,10),(3,1,490,13,9),(4,1,490,13,11),(6,1,490,13,10),(7,1,490,12,9), };
+End_Sim;
+Dead_Agents; {  };
+RE;
+Simulation_Over;
+MSG;System Run ended on: 2024-11-27 20:37:55.183657
 MSG;Kernel Shutting Down;
