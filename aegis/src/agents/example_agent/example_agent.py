@@ -195,23 +195,59 @@ class ExampleAgent(Brain):
             cell.set_top_layer(cell_info.top_layer)
 
 
+#    def find_survivor_location(self, world):
+#        grid_array = world.get_world_grid() 
+#        
+#        for x in range(len(grid_array)):
+#            for y in range(len(grid_array[x])):
+#                grid_cell = grid_array[x][y]  
+#
+#                grid_location = Location(x, y)
+#                # Check if the grid cell contains survivor and if it hasn't been saved
+#                if grid_cell and grid_cell.survivor_chance > 0 and grid_location not in self.saved_survivors:
+#                    BaseAgent.log(LogLevels.Always, f"Survivor found at row: {x}, col: {y}")
+#                    self.survivor_location = grid_location  # Set the class variable
+#                    return Location(x, y)  # Return the location of the survivor#
+#
+#        BaseAgent.log(LogLevels.Always, "No survivor found in the grid.")
+#        self.survivor_location = None  # If no survivor found, set the class variable to None
+#        return None 
+
     def find_survivor_location(self, world):
-        grid_array = world.get_world_grid() 
+        grid_array = world.get_world_grid()
+        closest_survivor_location = None
+        closest_distance = float('inf')  # Start with a very large distance
         
         for x in range(len(grid_array)):
             for y in range(len(grid_array[x])):
-                grid_cell = grid_array[x][y]  
-
+                grid_cell = grid_array[x][y]
                 grid_location = Location(x, y)
-                # Check if the grid cell contains survivor and if it hasn't been saved
-                if grid_cell and grid_cell.survivor_chance > 0 and grid_location not in self.saved_survivors:
-                    BaseAgent.log(LogLevels.Always, f"Survivor found at row: {x}, col: {y}")
-                    self.survivor_location = grid_location  # Set the class variable
-                    return Location(x, y)  # Return the location of the survivor
 
-        BaseAgent.log(LogLevels.Always, "No survivor found in the grid.")
-        self.survivor_location = None  # If no survivor found, set the class variable to None
-        return None  
+                # Check if the grid cell contains a survivor and hasn't been saved
+                if grid_cell and grid_cell.survivor_chance > 0 and grid_location not in self.saved_survivors:
+                    # Calculate the Euclidean distance from the agent's current location to the survivor
+                    distance = self.calculate_distance(self._agent.get_location(), grid_location)
+                    
+                    # Check if this survivor is the closest so far
+                    if distance < closest_distance:
+                        # You can add accessibility checks here if needed
+                        closest_survivor_location = grid_location
+                        closest_distance = distance
+        
+        if closest_survivor_location:
+            BaseAgent.log(LogLevels.Always, f"Closest survivor found at {closest_survivor_location}")
+            self.survivor_location = closest_survivor_location
+            return closest_survivor_location  # Return the closest survivor location
+        else:
+            BaseAgent.log(LogLevels.Always, "No accessible survivor found.")
+            self.survivor_location = None  # If no survivor found, set the class variable to None
+            return None
+
+    def calculate_distance(self, current_location, target_location):
+        """Calculates the Euclidean distance between two locations."""
+        dx = target_location.x - current_location.x
+        dy = target_location.y - current_location.y
+        return math.sqrt(dx ** 2 + dy ** 2) 
     
     def run_a_star(self, world, goal):
         start = self._agent.get_location()
@@ -242,7 +278,7 @@ class ExampleAgent(Brain):
                 neighbor_grid_cell = world.get_cell_at(neighbor_location)
 
                 # If the neighbor is out of bounds or already visited then skip it
-                if neighbor_location in visited or neighbor_grid_cell is None or neighbor_grid_cell.is_killer_cell() or neighbor_grid_cell.is_on_fire():
+                if neighbor_location in visited or neighbor_grid_cell is None or neighbor_grid_cell.is_killer_cell() or neighbor_grid_cell.is_fire_cell() or neighbor_grid_cell.is_on_fire():
                     continue
 
                 # Calculate g(n) - the movement cost to move into this neighboring cell
