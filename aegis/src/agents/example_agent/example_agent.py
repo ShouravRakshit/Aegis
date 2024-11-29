@@ -92,7 +92,7 @@ class ExampleAgent(Brain):
     def handle_save_surv_result(self, ssr: SAVE_SURV_RESULT) -> None:
         BaseAgent.log(LogLevels.Always, f"SAVE_SURV_RESULT: {ssr}")
         BaseAgent.log(LogLevels.Test, f"{ssr}")
-        #print("#--- You need to implement handle_save_surv_result function! ---#")
+        self.current_surround_info = ssr.surround_info
 
     @override
     def handle_predict_result(self, prd: PREDICT_RESULT) -> None:
@@ -155,19 +155,41 @@ class ExampleAgent(Brain):
         # Get the top layer at the agent’s current location.
         top_layer = cell.get_top_layer()
 
-        # If a survivor is present and has not been saved before, save it and end the turn.
-        if isinstance(top_layer, Survivor) and cell.location not in self.saved_survivors:
+        # If a survivor is present, save it and end the turn.
+        if isinstance(top_layer, Survivor):
             self.send_and_end_turn(SAVE_SURV())
-            print ("survivor saved at location: ", cell.location)
-            self.saved_survivors.append(cell.location)  # Mark the survivor as saved
+            BaseAgent.log(LogLevels.Always, f"Survivor saved at location: {cell.location}")
+            return
+        
+        # If rubble is present, clear it and end the turn.
+        if isinstance(top_layer, Rubble) and cell.location == self.survivor_location:
+            self.send_and_end_turn(TEAM_DIG())
+            BaseAgent.log(LogLevels.Always, f"Digging rubble at location: {cell.location}")
             return
 
-        # If rubble is present, clear it and end the turn.
-        if isinstance(top_layer, Rubble) and cell.location == self.survivor_location and cell.location not in self.saved_survivors:
-            self.send_and_end_turn(TEAM_DIG())
-            return
+        # No more survivors or rubble at this location, mark it as saved
+        if cell.location == self.survivor_location and cell.location not in self.saved_survivors:
+            self.saved_survivors.append(cell.location)
+            BaseAgent.log(LogLevels.Always, f"Location {cell.location} marked as saved.")
+
+        # # If a survivor is present and has not been saved before, save it and end the turn.
+        # if isinstance(top_layer, Survivor) and cell.location not in self.saved_survivors:
+        #     self.send_and_end_turn(SAVE_SURV())
+        #     print ("survivor saved at location: ", cell.location)
+        #     self.saved_survivors.append(cell.location)  # Mark the survivor as saved
+        #     return
+
+        # # If rubble is present, clear it and end the turn.
+        # if isinstance(top_layer, Rubble) and cell.location == self.survivor_location and cell.location not in self.saved_survivors:
+        #     self.send_and_end_turn(TEAM_DIG())
+        #     return
 
         survivor_location = self.find_survivor_location(world)
+        if survivor_location is None:
+            # No survivors left to save; end turn or implement other logic
+            BaseAgent.log(LogLevels.Always, "No more survivors to save.")
+            self.send_and_end_turn(END_TURN())
+            return
 
         # Run A* search to get the best direction to move towards the survivor
         direction = self.run_a_star(world, survivor_location)
