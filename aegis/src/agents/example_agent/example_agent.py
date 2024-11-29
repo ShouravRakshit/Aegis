@@ -33,9 +33,6 @@ class ExampleAgent(Brain):
         super().__init__()
         self._agent: BaseAgent = BaseAgent.get_base_agent()
         # Initialize movement tracking
-        self.moving_north = True  # Start by moving north
-        self.north_steps = 0      # Track how many steps north we've taken
-        self.max_north_steps = 4  # Maximum steps to take north before moving east
         self.current_surround_info = None  # Store the latest surround info
         self.saved_survivors = []  # List to track saved survivors
         self.survivor_location = None  # Class variable to store survivor location
@@ -84,13 +81,6 @@ class ExampleAgent(Brain):
         BaseAgent.log(LogLevels.Test, f"{mr}")
         # Store the latest surround info
         self.current_surround_info = mr.surround_info
-        
-        # Update movement tracking after successful move
-        if self.moving_north:
-            self.north_steps += 1
-            if self.north_steps >= self.max_north_steps:
-                self.moving_north = False
-                self.north_steps = 0
 
     @override
     def handle_observe_result(self, ovr: OBSERVE_RESULT) -> None:
@@ -185,24 +175,10 @@ class ExampleAgent(Brain):
         if direction:
             self.send_and_end_turn(MOVE(direction))
             return
-
-        elif self.moving_north:
-            # Check if we can move north
-            north_cell = world.get_cell_at(self._agent.get_location().add(Direction.NORTH))
-            if north_cell is not None and world.on_map(north_cell.location):
-                BaseAgent.log(LogLevels.Always, f"Moving NORTH (Step {self.north_steps + 1}/{self.max_north_steps})")
-                self.send_and_end_turn(MOVE(Direction.NORTH))
-            else:
-                # If we can't move north, switch to moving east
-                self.moving_north = False
-                self.north_steps = 0
-                self.send_and_end_turn(MOVE(Direction.EAST))
         else:
             # Move east and reset north movement
             BaseAgent.log(LogLevels.Always, "Moving EAST")
             self.send_and_end_turn(MOVE(Direction.EAST))
-            self.moving_north = True
-            self.north_steps = 0
 
     def send_and_end_turn(self, command: AgentCommand):
         """Send a command and end your turn."""
