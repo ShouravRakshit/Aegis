@@ -597,7 +597,7 @@ class ExampleAgent(Brain):
             return
         
         # Check to see if agent has the energy to make it to its goal, if not, move to the nearest charging station
-        if current_energy < self.calculate_distance(cell.location,survivor_location) and not cell.is_charging_cell():
+        if current_energy <= self.calculate_distance(cell.location,survivor_location) and not cell.is_charging_cell():
             closestChargingLocation = self.get_closest_charging_cell(world)
             if closestChargingLocation is None:
                 self.send_and_end_turn(SLEEP())
@@ -607,7 +607,7 @@ class ExampleAgent(Brain):
                 self.send_and_end_turn(MOVE(gotoChargingDirection))
                 return
         # If there is no charging station, sleep and recharge until energy is enough to reach the survivor
-        elif current_energy < self.calculate_distance(cell.location,survivor_location) and cell.is_charging_cell():
+        elif current_energy <= self.calculate_distance(cell.location,survivor_location) and cell.is_charging_cell():
             self.send_and_end_turn(SLEEP())
             return
             
