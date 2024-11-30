@@ -461,7 +461,7 @@ class ExampleAgent(Brain):
         other_agent_id = smr.from_agent_id.id
         other_agent_team = other_agent_id % 3
 
-        # Parse location - extract coordinates without using eval
+        # Parse location value
         if "My location is" in smr.msg:
             loc_str = smr.msg.split("My location is")[-1].split(";")[0].strip()
             # Parse format "( X 2 , Y 8 )" to get coordinates
@@ -473,7 +473,7 @@ class ExampleAgent(Brain):
             except:
                 BaseAgent.log(LogLevels.Always, f"Failed to parse location from: {loc_str}")
 
-        # Parse energy - extract number without using eval
+        # Parse energy value
         if "Energy:" in smr.msg:
             try:
                 energy = int(smr.msg.split("Energy:")[-1].split(";")[0].strip())
