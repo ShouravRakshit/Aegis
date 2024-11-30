@@ -421,6 +421,7 @@ from aegis import (
     Rubble,
     SurroundInfo,
     Survivor,
+    SLEEP,
 )
 from aegis.common.location import Location
 
@@ -533,6 +534,7 @@ class ExampleAgent(Brain):
 
         current_location = self._agent.get_location()
         current_energy = self._agent.get_energy_level()
+
         
         # Enhanced status message with team information
         message = f"My location is {current_location}; Energy: {current_energy}; Team: {self.team_number}"
@@ -593,6 +595,22 @@ class ExampleAgent(Brain):
             BaseAgent.log(LogLevels.Always, "No more survivors to save.")
             self.send_and_end_turn(END_TURN())
             return
+        
+        # Check to see if agent has the energy to make it to its goal, if not, move to the nearest charging station
+        if current_energy < self.calculate_distance(cell.location,survivor_location) and not cell.is_charging_cell():
+            closestChargingLocation = self.get_closest_charging_cell(world)
+            if closestChargingLocation is None:
+                self.send_and_end_turn(SLEEP())
+                return
+            gotoChargingDirection = self.run_a_star(world, closestChargingLocation)
+            if gotoChargingDirection:
+                self.send_and_end_turn(MOVE(gotoChargingDirection))
+                return
+        # If there is no charging station, sleep and recharge until energy is enough to reach the survivor
+        elif current_energy < self.calculate_distance(cell.location,survivor_location) and cell.is_charging_cell():
+            self.send_and_end_turn(SLEEP())
+            return
+            
 
         # Move toward survivor
         direction = self.run_a_star(world, survivor_location)
@@ -730,3 +748,23 @@ class ExampleAgent(Brain):
                 return direction
             current = previous
         return first_step
+
+    def get_closest_charging_cell(self, world):
+        # Basically the same as get_closest_survivor_location but for charging cells
+        grid_array = world.get_world_grid()
+        closest_charging_location = None
+        closest_distance = float('inf')
+        # Iterate through the grid to find the closest charging cell
+        for x in range(len(grid_array)):
+            for y in range(len(grid_array[x])):
+                grid_cell = grid_array[x][y]
+                grid_location = Location(x, y)
+                # Once its found, calculate the distance and compare to find the closest one
+                if grid_cell and grid_cell.is_charging_cell():
+                    distance = self.calculate_distance(self._agent.get_location(), grid_location)
+                    if distance < closest_distance:
+                        closest_charging_location = grid_location
+                        closest_distance = distance
+        
+        # Return the closest charging location
+        return closest_charging_location
