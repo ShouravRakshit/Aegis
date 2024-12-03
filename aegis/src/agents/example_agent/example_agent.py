@@ -177,6 +177,15 @@ class ExampleAgent(Brain):
             if cell.location not in self.saved_survivors:
                 self.saved_survivors.append(cell.location)
             return
+        ## 
+        survivor_location = self.find_survivor_location(world)
+        if survivor_location is None:
+            BaseAgent.log(LogLevels.Always, "No more survivors to save.")
+            self.send_and_end_turn(END_TURN())
+            return
+
+        # Set the survivor location
+        self.survivor_location = survivor_location
 
         # Handle rubble with team coordination
         if isinstance(top_layer, Rubble) and cell.location == self.survivor_location:
