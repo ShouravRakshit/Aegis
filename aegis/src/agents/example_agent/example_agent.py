@@ -1,3 +1,10 @@
+"""
+CPSC 383/Fall2024/T03
+Authors: Ahsaas Kaushal 30187656, Alisha Lalani 30123098, Shourav Rakshit Ivan 30131085, James (Jimmy) Parkins 31096866
+Assignment 3 Submission of example agent
+DATE: 2024-12-03
+"""
+
 import heapq
 import math
 from typing import override
@@ -42,19 +49,23 @@ class ExampleAgent(Brain):
         self.other_agent_energies = {}
         self.team_survivor_locations = {}
 
+    # Handles the events of agent connect
     @override
     def handle_connect_ok(self, connect_ok: CONNECT_OK) -> None:
         BaseAgent.log(LogLevels.Always, "CONNECT_OK")
         self.team_number = self._agent.get_agent_id().id % 3
 
+    # Notifies the log when the agent disconnects
     @override
     def handle_disconnect(self) -> None:
         BaseAgent.log(LogLevels.Always, "DISCONNECT")
 
+    # Notifies the log when the agent dies
     @override
     def handle_dead(self) -> None:
         BaseAgent.log(LogLevels.Always, "DEAD")
 
+    # Handles the event of an agent recieving a message
     @override
     def handle_send_message_result(self, smr: SEND_MESSAGE_RESULT) -> None:
         BaseAgent.log(LogLevels.Always, f"SEND_MESSAGE_RESULT: {smr}")
@@ -97,33 +108,39 @@ class ExampleAgent(Brain):
             except:
                 BaseAgent.log(LogLevels.Always, f"Failed to parse survivor location from: {surv_loc_str}")
 
+    # Handles the move result event, notify log and update surroundings
     @override
     def handle_move_result(self, mr: MOVE_RESULT) -> None:
         BaseAgent.log(LogLevels.Always, f"MOVE_RESULT: {mr}")
         BaseAgent.log(LogLevels.Test, f"{mr}")
         self.current_surround_info = mr.surround_info
 
+    # Notifies log of outcome from observing
     @override
     def handle_observe_result(self, ovr: OBSERVE_RESULT) -> None:
         BaseAgent.log(LogLevels.Always, f"OBSERVER_RESULT: {ovr}")
         BaseAgent.log(LogLevels.Test, f"{ovr}")
 
+    # Notifies log about a saved survivor event and updates surroundings
     @override
     def handle_save_surv_result(self, ssr: SAVE_SURV_RESULT) -> None:
         BaseAgent.log(LogLevels.Always, f"SAVE_SURV_RESULT: {ssr}")
         BaseAgent.log(LogLevels.Test, f"{ssr}")
         self.current_surround_info = ssr.surround_info
 
+    # Notifies log of predict event result
     @override
     def handle_predict_result(self, prd: PREDICT_RESULT) -> None:
         BaseAgent.log(LogLevels.Always, f"PREDICT_RESULT: {prd}")
         BaseAgent.log(LogLevels.Test, f"{prd}")
 
+    # Notifies log with sleep results
     @override
     def handle_sleep_result(self, sr: SLEEP_RESULT) -> None:
         BaseAgent.log(LogLevels.Always, f"SLEEP_RESULT: {sr}")
         BaseAgent.log(LogLevels.Test, f"{sr}")
 
+    # Notifies log with dig team results and updates surroundings
     @override
     def handle_team_dig_result(self, tdr: TEAM_DIG_RESULT) -> None:
         BaseAgent.log(LogLevels.Always, f"TEAM_DIG_RESULT: {tdr}")
@@ -158,26 +175,29 @@ class ExampleAgent(Brain):
         if self.current_surround_info is not None:
             self.update_surround(self.current_surround_info)
 
+        # Store world grid and check if its valid
         world = self.get_world()
         if world is None:
             self.send_and_end_turn(MOVE(Direction.CENTER))
             return
 
+        # Store the agents position and check if its valid
         cell = world.get_cell_at(current_location)
         if cell is None:
             self.send_and_end_turn(MOVE(Direction.CENTER))
             return
 
+        # Store the top layer of the current location
         top_layer = cell.get_top_layer()
 
-        # Handle survivor rescue
+        # If current location has a survivor, handle the survivor location
         if isinstance(top_layer, Survivor):
             self.send_and_end_turn(SAVE_SURV())
             BaseAgent.log(LogLevels.Always, f"Survivor saved at location: {cell.location}")
             if cell.location not in self.saved_survivors:
                 self.saved_survivors.append(cell.location)
             return
-        ## 
+        # Check to see if there is anymore survivors to save
         survivor_location = self.find_survivor_location(world)
         if survivor_location is None:
             BaseAgent.log(LogLevels.Always, "No more survivors to save.")
@@ -223,7 +243,7 @@ class ExampleAgent(Brain):
             return
             
 
-        # Move toward survivor
+        # Create a path to the closest survivor
         direction = self.run_a_star(world, survivor_location)
 
 
@@ -243,21 +263,25 @@ class ExampleAgent(Brain):
             BaseAgent.log(LogLevels.Always, f"New closest survivor found at {self.survivor_location}")
             direction = self.run_a_star(world, self.survivor_location)
 
+        # Finally, send it towards the nearest reachable survivor
         self.send_and_end_turn(MOVE(direction))
 
 
 
-
+    # Handles command execution and notifies log
     def send_and_end_turn(self, command: AgentCommand):
         BaseAgent.log(LogLevels.Always, f"SENDING {command}")
         self._agent.send(command)
         self._agent.send(END_TURN())
-
+    
+    # Update the surroundings of the agent
     def update_surround(self, surround_info: SurroundInfo):
+        # Check if world is valid and store
         world = self.get_world()
         if world is None:
             return
 
+        # Check surrounding cells with direction loop
         for dir in Direction:
             cell_info = surround_info.get_surround_info(dir)
             if cell_info is None:
@@ -267,55 +291,11 @@ class ExampleAgent(Brain):
             if cell is None:
                 continue
 
+            # Store information about valid surrounding cells
             cell.move_cost = cell_info.move_cost
             cell.set_top_layer(cell_info.top_layer)
 
-    def find_survivor_location_old(self, world):
-        grid_array = world.get_world_grid()
-        closest_survivor_location = None
-        closest_distance = float('inf')
-        
-        world_width = len(grid_array)
-        section_width = max(1, world_width // 3)
-        
-        # First try to find survivors in assigned section
-        for x in range(len(grid_array)):
-            for y in range(len(grid_array[x])):
-                grid_cell = grid_array[x][y]
-                grid_location = Location(x, y)
-
-                if grid_cell and grid_cell.survivor_chance > 0 and grid_location not in self.saved_survivors:
-                    # Check if survivor is in team's section
-                    survivor_section = x // section_width
-                    if survivor_section == self.team_number:
-                        distance = self.calculate_distance(self._agent.get_location(), grid_location)
-                        if distance < closest_distance:
-                            closest_survivor_location = grid_location
-                            closest_distance = distance
-        
-        # If no survivors found in assigned section, look anywhere
-        if closest_survivor_location is None:
-            for x in range(len(grid_array)):
-                for y in range(len(grid_array[x])):
-                    grid_cell = grid_array[x][y]
-                    grid_location = Location(x, y)
-
-                    if grid_cell and grid_cell.survivor_chance > 0 and grid_location not in self.saved_survivors:
-                        distance = self.calculate_distance(self._agent.get_location(), grid_location)
-                        if distance < closest_distance:
-                            closest_survivor_location = grid_location
-                            closest_distance = distance
-
-        if closest_survivor_location:
-            BaseAgent.log(LogLevels.Always, f"Closest survivor found at {closest_survivor_location}")
-            self.survivor_location = closest_survivor_location
-            return closest_survivor_location
-        else:
-            BaseAgent.log(LogLevels.Always, "No accessible survivor found.")
-            self.survivor_location = None
-            return None
-
-
+    # Finds the closest survivor to the agent with accessability considerations
     def find_survivor_location(self, world):
         grid_array = world.get_world_grid()
         closest_survivor_location = None
@@ -354,6 +334,7 @@ class ExampleAgent(Brain):
                             closest_survivor_location = grid_location
                             closest_distance = distance
 
+        # Notify log of new closest survivor and return
         if closest_survivor_location:
             BaseAgent.log(LogLevels.Always, f"Next closest survivor found at {closest_survivor_location}")
             return closest_survivor_location
@@ -361,20 +342,22 @@ class ExampleAgent(Brain):
             BaseAgent.log(LogLevels.Always, "No accessible survivors found.")
             return None
 
-
-
+    # Hueristic function that calculates the distance between pos1 and pos2
     def calculate_distance(self, current_location, target_location):
         dx = target_location.x - current_location.x
         dy = target_location.y - current_location.y
         return math.sqrt(dx ** 2 + dy ** 2)
 
+    # Hueristic function that uses euclidean distance to calculate distance between pos1 and pos2
     def get_heuristic(self, current, destination):
         x_distance = (destination.x - current.x) ** 2
         y_distance = (destination.y - current.y) ** 2
         euclidean_distance = x_distance + y_distance
         return math.sqrt(euclidean_distance)
 
+    # Pathfinding algorithm that returns an efficient path (if accessable) from pos1 to pos2
     def run_a_star(self, world, goal):
+        # Variable init
         start = self._agent.get_location()
         priority_queue = []
         path_trace = {}
@@ -384,49 +367,63 @@ class ExampleAgent(Brain):
 
         heapq.heappush(priority_queue, (0, start))
 
+        # Begin the pathfinding algorithm
         while priority_queue:
             _, current_cell = heapq.heappop(priority_queue)
 
+            # If cell is visited, do not consider for path
             if current_cell in visited:
                 continue
 
+            # If not, add it to considered so its not considered more than once
             visited.add(current_cell)
 
+            # If we're at our goal, return the path
             if current_cell == goal:
                 return self.get_first_step_of_path(path_trace, start, goal)
 
+            # Do a direction loop to check surrounding nodes for path
             for direction in Direction:
                 neighbor_location = current_cell.add(direction)
                 neighbor_grid_cell = world.get_cell_at(neighbor_location)
 
+                # If neighboring cell is dangerous, invalid, or visited, we dont consider it
                 if neighbor_location in visited or neighbor_grid_cell is None or neighbor_grid_cell.is_killer_cell() or neighbor_grid_cell.is_fire_cell() or neighbor_grid_cell.is_on_fire():
                     continue
 
+                # Calculate the g cose of this neighbor
                 current_g_cost = g_costs[current_cell] + neighbor_grid_cell.move_cost
 
+                # Check if neighbor is the most optimal out of all the neighbors
                 if neighbor_location not in g_costs or current_g_cost < g_costs[neighbor_location]:
                     g_costs[neighbor_location] = current_g_cost
                     h_cost = self.get_heuristic(neighbor_location, goal)
                     f_cost = current_g_cost + h_cost
 
+                    # And store the neighbor in the path
                     path_trace[neighbor_location] = (current_cell, direction)
                     heapq.heappush(priority_queue, (f_cost, neighbor_location))
 
+        # If nothing is valid, return nothing
         return None
 
     def get_first_step_of_path(self, came_from, start, goal):
+        # Variable init
         first_step = None
 
+        # Reverse the path
         current = goal
         while current != start:
             previous, direction = came_from[current]
             if previous == start:
                 return direction
             current = previous
+
+        # Return the new first value
         return first_step
 
+    # Basically the same as get_closest_survivor_location but for charging cells
     def get_closest_charging_cell(self, world):
-        # Basically the same as get_closest_survivor_location but for charging cells
         grid_array = world.get_world_grid()
         closest_charging_location = None
         closest_distance = float('inf')
